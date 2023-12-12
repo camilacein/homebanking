@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2dbbf937-4fe5-47ab-89c1-09a632656307" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/HomebankingApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/controllers/ClientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/dto/AccountDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/dto/ClientDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/models/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/models/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/repositories/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/java/com/mindhub/homebanking/repositories/ClientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/account.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/account.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/banner.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/cerrar-sesion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/facebook.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/instagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/images/whatsapp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/manager.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/manager.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/main/resources/static/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sprint2Java/homebanking/src/test/java/com/mindhub/homebanking/HomebankingApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homebanking/src/main/java/com/mindhub/homebanking/controllers/ClientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homebanking/src/main/java/com/mindhub/homebanking/dto/AccountDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homebanking/src/main/java/com/mindhub/homebanking/dto/ClientDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homebanking/src/main/java/com/mindhub/homebanking/models/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/homebanking/src/main/java/com/mindhub/homebanking/repositories/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprint1Java.zip" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "camilacein"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="94f2f2cd-b62c-481d-9ef8-5659b7510a7a" />
+        <option name="url" value="https://github.com/camilacein/Sprint2Java.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2ZNYyHbO0evJCqcxD3zK3FKQpYP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/ceinc/Documents/java/homebanking/Sprint2Java"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ceinc\Documents\java\homebanking\Sprint2Java" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2dbbf937-4fe5-47ab-89c1-09a632656307" name="Changes" comment="" />
+      <created>1702264256953</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702264256953</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
+    <title>Homebanking Banco de La Pampa</title>
+</head>
+<body class="bg-yellow-100">
+    <div id="app">
+        <header class="bg-yellow-500 text-center">
+            <h1 class="titulo text-3xl">Banco de La Pampa</h1>
+
+
+        </header>
+        <main class="flex">
+            
+            <div class="flex flex-col items-center">
+                <h2 class="titulo text-2xl" >Client Manager</h2>
+
+            <label class="flex flex-col items-center parrafo text-lg">
+            <p>Name:</p>
+            <input v-model="name" type="text">
+            <p>Last Name:</p>
+            <input v-model="lastname" type="text">
+            <P>Email:</P>
+            <input v-model="email" type="email">
+            <br>
+            <button @click="addClient"  class="bg-green-700 rounded">Add client</button>
+            
+            </label>
+            <div class="m-4">
+            <h2 class="titulo text-2xl text-center">Client list</h2>
+            
+                <table class="m-2 w-[350px] h-[200px] text-center">
+                   
+                    <tr class="bg-green-700 titulo">
+                        <th>FirstName</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                    <tbody>
+                    <template v-if="clients.length > 0" v-for="client in clients">
+                       
+                        <tr class="bg-yellow-300 parrafo">
+                            <td>{{client.name}}</td>
+                        
+                            <td>{{client.lastname}}</td>
+                       
+                            <td>{{client.email}}</td>
+                        </tr>
+                           
+                        
+
+                    </template>
+                </tbody>
+
+                </table>
+            </div>
+               
+            
+        </div>
+            <div class="">
+                <h2 class="titulo text-2xl">Client REST response</h2>
+                <pre>
+                    {{data}}
+                </pre>
+            </div>
+
+        </main>
+        <footer class="flex titulo justify-center bg-yellow-500">
+            <p>Camila Cein Cohort 52</p>
+
+        </footer>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com%22%3E/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type="module" src="tailwind.config.js"></script>
+        <script src="manager.js"></script>
+    
+</body>
+</html>

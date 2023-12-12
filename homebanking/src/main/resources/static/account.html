@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
+    <title>Homebanking Banco de La Pampa</title>
+</head>
+<body class=" bg-yellow-100 min-h-screen">
+    <div id="app">
+        <header class="flex sm:flew-wrap flex-col  items-center bg-yellow-500">
+            <img class="w-[100px]" src="images/logo.png" alt="">
+            <h1 class="titulo text-3xl">Banco de La Pampa</h1>
+            <nav class=" flex flex-wrap gap-2 parrafo">
+                <a href="#">Accounts</a>
+                <a href="#">Cards</a>
+                <a href="#">Loans</a>
+                <a href="#">Transactions</a>
+                <a href="#"><img class="w-[30px]" src="images/cerrar-sesion.png" alt=""></a>
+            </nav>
+        </header>
+        <main class="bg-yellow-100 flex-grow-8">
+
+            <h3 class="titulo text-xl text-center">Hola {{clients.name}} </h3>
+            
+            <div class="flex flex-wrap gap-2 justify-center m-6 rounded ">
+
+                    <div v-if="clients.length!=0" class="parrafo text-2xl flex flex-col items-center justify-center w-[400px] h-[200px] bg-yellow-300">
+                        <p>Numero de Cuenta: {{accounts.number}}</p>
+                        <p>Monto: {{formatBudget(accounts.balance)}}</p>
+                        <p>Fecha de creacion: {{accounts.creationDate}}</p>
+    
+                    </div>
+
+
+            </div>
+            <h2 class="titulo text-2xl text-center">Transferencias</h2>
+
+            <template v-if="transactions.length > 0" v-for="transaction in transactions">
+                <table class="flex flex-col items-center justify-center text- m-4">
+                    <tr class="justify-center sm:text-xl text-center border-collapse border border-black">
+                        <td>Tipo:</td>
+                        <td v-if="transaction.type=='CREDIT'" class="bg-green-700">{{transaction.type}}</td>
+                        <td v-else class="bg-red-700">{{transaction.type}}</td>
+                    </tr>
+                    <tr class="justify-center text-center border-collapse border border-black">
+                        <td>Monto:</td>
+                        <td>{{transaction.amount}}</td>
+                    </tr>
+                    <tr class="justify-center text-center border-collapse border border-black">
+                        <td>Descripcion:</td>
+                        <td>{{transaction.description}}</td>
+                    </tr>
+                    <tr class="justify-center text-center border-collapse border border-black">
+                        <td>Fecha:</td>
+                        <td>{{transaction.dateTime}}</td>
+                    </tr>
+              
+                </table>
+
+            </template>
+           
+            
+            
+            
+
+
+            
+            
+        </main> 
+        <footer class="titulo flex justify-center bg-yellow-500">
+            <p>Camila Cein Cohort 52</p>
+            <a href="#"><img class="w-[40px]" src="images/facebook.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="images/instagram.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="images/whatsapp.png" alt=""></a>
+        </footer>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com%22%3E/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script type="module" src="tailwind.config.js"></script>
+        <script src="./account.js"></script>
+</body>
+</html>
