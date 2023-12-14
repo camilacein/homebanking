@@ -5,6 +5,7 @@ let app = createApp({
         return{
             clients: [],
             accounts: [],
+            loans: [],	
         }
     },
     created(){
@@ -14,11 +15,12 @@ let app = createApp({
 
     methods:{
         loanData(){
-            axios("/api/clients/1")
+            axios("http://localhost:8080/api/clients/1")
             .then(response =>{ 
                 this.clients = response.data
                 console.log(this.clients)
-            this.accounts =response.data.accounts})
+            this.accounts =response.data.accounts
+            this.loans =response.data.clienLoanDTOS})
           .catch(error => console.log(error))
         },
         formatBudget(balance) {

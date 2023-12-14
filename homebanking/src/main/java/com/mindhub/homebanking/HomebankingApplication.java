@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +18,11 @@ public class HomebankingApplication<accountRepository> {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository,
+									  AccountRepository accountRepository,
+									  TransactionRepository transactionRepository,
+									  ClientLoanRepository clientLoanRepository,
+									  LoanRepository loanRepository){
 		return args -> {
 			Client cliente1 = new Client ("Melba", "Morel", "melba@mindhub.com");
 			Client cliente2 = new Client("Camila", "Cein","ceincamila@gmail.com");
@@ -63,6 +62,36 @@ public class HomebankingApplication<accountRepository> {
 			transactionRepository.save(transaction2);
 			transactionRepository.save(transaction3);
 			transactionRepository.save(transaction4);
+
+			Loan hipotecario = new Loan("hipotecario",500000, List.of(12,24,36,48,60));
+			Loan personal = new Loan("personal",100000,List.of(6,12,24));
+			Loan automotriz = new Loan("automotriz",300000, List.of(6,12,24,36));
+			loanRepository.save(hipotecario);
+			loanRepository.save(personal);
+			loanRepository.save(automotriz);
+
+			ClientLoan hipotecarioMelba= new ClientLoan(400000,60);
+			ClientLoan personalMelba= new ClientLoan(50000,12);
+			ClientLoan automotrizCamila= new ClientLoan(300000,36);
+			ClientLoan personalCamila= new ClientLoan(100000,24);
+
+			hipotecario.addClientLoans(hipotecarioMelba);
+			personal.addClientLoans(personalMelba);
+			automotriz.addClientLoans(automotrizCamila);
+			personal.addClientLoans(personalCamila);
+
+			cliente1.addClientLoan(hipotecarioMelba);
+			cliente1.addClientLoan(personalMelba);
+			cliente2.addClientLoan(automotrizCamila);
+			cliente2.addClientLoan(personalCamila);
+
+			clientLoanRepository.save(hipotecarioMelba);
+			clientLoanRepository.save(personalMelba);
+			clientLoanRepository.save(automotrizCamila);
+			clientLoanRepository.save(personalCamila);
+
+
+
 
 		};
 	}
