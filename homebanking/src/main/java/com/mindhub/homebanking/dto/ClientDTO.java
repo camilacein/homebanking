@@ -11,12 +11,19 @@ public class ClientDTO {
     private String name, lastname;
     private List<AccountDTO> accounts;
     private Set<ClienLoanDTO> clienLoanDTOS;
+    private List<CardDTO> cardDTOS;
+    private String email;
+    public List<CardDTO> getCardDTOS() {
+        return cardDTOS;
+    }
     public ClientDTO(Client client){
         id= client.getId();
         name= client.getName();
         lastname= client.getLastname();
+        email = client.getEmail();
         accounts= client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
         clienLoanDTOS= client.getClientLoans().stream().map(clientLoan -> new ClienLoanDTO(clientLoan)).collect(Collectors.toSet());
+        cardDTOS = client.getCard().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
     }
 
     public Set<ClienLoanDTO> getClienLoanDTOS() {

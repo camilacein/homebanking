@@ -22,7 +22,8 @@ public class HomebankingApplication<accountRepository> {
 									  AccountRepository accountRepository,
 									  TransactionRepository transactionRepository,
 									  ClientLoanRepository clientLoanRepository,
-									  LoanRepository loanRepository){
+									  LoanRepository loanRepository,
+									  CardRepository cardRepository){
 		return args -> {
 			Client cliente1 = new Client ("Melba", "Morel", "melba@mindhub.com");
 			Client cliente2 = new Client("Camila", "Cein","ceincamila@gmail.com");
@@ -89,6 +90,15 @@ public class HomebankingApplication<accountRepository> {
 			clientLoanRepository.save(personalMelba);
 			clientLoanRepository.save(automotrizCamila);
 			clientLoanRepository.save(personalCamila);
+			Card debit = new Card(CardType.DEBIT, "3325-6745-7876-4445",990,LocalDate.of(2021,04,26),LocalDate.of(2026,04,26),"Melba Morel", CardColor.GOLD );
+			Card credit = new Card(CardType.CREDIT, "2234-6745-552-7888",750,LocalDate.of(2021,04,26), LocalDate.of(2026,04,26),"Melba Morel", CardColor.TITANIUM);
+			Card debit1= new Card(CardType.DEBIT, "5255-4443-5007-1093", 105, LocalDate.of(2023,12,15), LocalDate.of(2028,12,15), "Camila Cein", CardColor.SILVER);
+			cliente1.addCard(debit);
+			cliente1.addCard(credit);
+			cliente2.addCard(debit1);
+			cardRepository.save(debit);
+			cardRepository.save(credit);
+			cardRepository.save(debit1);
 
 
 

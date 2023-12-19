@@ -8,20 +8,29 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
     <title>Homebanking Banco de La Pampa</title>
 </head>
 <body class="bg-yellow-100">
     <div id="app">
-        <header class="bg-yellow-500 text-center">
-            <h1 class="titulo text-3xl">Banco de La Pampa</h1>
-
-
+        <header class="flex flex-wrap sm:justify-between justify-center items-center bg-yellow-500">
+            <img class="w-[100px]" src="images/logo.png" alt="">
+            <h1 class="parrafo text-3xl">Banco de La Pampa</h1>
+            <nav class=" flex flex-wrap gap-1 parrafo">
+                <a href="manager.html">Inicio</a>
+                <a href="accounts.html">Cuentas</a>
+                <a href="cards.html">Tarjetas</a>
+                <a href="account.html">Transferencias</a>
+                <a href="#"><img class="w-[40px]" src="images/cerrar-sesion.png" alt=""></a>
+            </nav>
         </header>
         <main class="flex">
             
             <div class="flex flex-col items-center">
-                <h2 class="titulo text-2xl" >Client Manager</h2>
+                <h2 class="titulo text-5xl" >Client Manager</h2>
 
             <label class="flex flex-col items-center parrafo text-lg">
             <p>Name:</p>
@@ -73,8 +82,11 @@
             </div>
 
         </main>
-        <footer class="flex titulo justify-center bg-yellow-500">
+        <footer class="parrafo flex gap-2 justify-center items-center bg-yellow-500">
             <p>Camila Cein Cohort 52</p>
+            <a href="#"><img class="w-[40px]" src="images/facebook.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="images/instagram.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="images/whatsapp.png" alt=""></a>
 
         </footer>
 

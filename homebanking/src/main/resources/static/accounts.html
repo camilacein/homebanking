@@ -8,20 +8,24 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
     <title>Homebanking Banco de La Pampa</title>
 </head>
 <body class=" bg-yellow-100 min-h-screen">
     <div id="app">
-        <header class="flex sm:flew-wrap flex-col  items-center bg-yellow-500">
-            <img class="w-[100px]" src="images/logo.png" alt="">
-            <h1 class="titulo text-3xl">Banco de La Pampa</h1>
-            <nav class=" flex flex-wrap gap-2 parrafo">
-                <a href="#">Accounts</a>
-                <a href="#">Cards</a>
-                <a href="#">Loans</a>
-                <a href="account.html">Transactions</a>
+        <header class="flex flex-wrap sm:justify-between justify-center items-center bg-yellow-500">
+            <img class="w-[100px] flex" src="images/logo.png" alt="">
+            <h1 class="parrafo text-3xl">Banco de La Pampa</h1>
+            <nav class=" flex flex-wrap gap-1 parrafo">
+                <a href="manager.html">Inicio</a>
+                <a href="accounts.html">Cuentas</a>
+                <a href="cards.html">Tarjetas</a>
+                <a href="account.html">Transferencias</a>
                 <a href="#"><img class="w-[40px]" src="images/cerrar-sesion.png" alt=""></a>
+               
             </nav>
         </header>
         <main class="bg-yellow-100 flex-grow-8">
@@ -29,11 +33,11 @@
             
             
                 <img class="w-full" src="images/banner.jpg" alt="">
-                <h3 class="titulo text-2xl text-center">Hola {{clients.name}} </h3>
+                <h3 class="titulo text-5xl text-center">Hola {{clients.name}} </h3>
             
             <div class="flex flex-wrap gap-2 justify-center m-6">
                 <template v-if="accounts.length > 0" v-for="account in accounts">
-                    <div class="parrafo text-2xl flex flex-col items-center justify-center w-[400px] h-[200px] bg-yellow-300">
+                    <div class="parrafo sm:text-2xl flex flex-col items-center justify-center w-[400px] h-[200px] bg-yellow-300">
                         <p>Numero de Cuenta: {{account.number}}</p>
                         <p>Monto: {{formatBudget(account.balance)}}</p>
                         <p>Fecha de creacion: {{account.creationDate}}</p>
@@ -42,11 +46,11 @@
                  </template>
 
             </div>
-            <h2 class="titulo text-2xl text-center">Prestamos</h2>
+            <h2 class="titulo text-4xl text-center">Prestamos</h2>
             <div class="flex flex-wrap gap-2 justify-center m-6" >
                 
                 <template v-if="loans.length>0" v-for="loan in loans" >
-                <div class="parrafo text-2xl flex flex-col items-center justify-center w-[400px] h-[200px] bg-yellow-300" >
+                <div class="parrafo sm:text-2xl flex flex-col items-center justify-center w-[400px] h-[200px] bg-yellow-300" >
                  <p>Tipo de prestamo: {{loan.name}}</p>
                 <p>Monto: {{formatBudget(loan.amount)}}</p>
                 <p>Cuotas: {{loan.payments}}</p>
@@ -60,7 +64,7 @@
             
             
         </main> 
-        <footer class="titulo flex justify-center bg-yellow-500">
+        <footer class="parrafo flex gap-2 justify-center items-center bg-yellow-500">
             <p>Camila Cein Cohort 52</p>
             <a href="#"><img class="w-[40px]" src="images/facebook.png" alt=""></a>
             <a href="#"><img class="w-[40px]" src="images/instagram.png" alt=""></a>

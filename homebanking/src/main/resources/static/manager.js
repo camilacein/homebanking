@@ -16,15 +16,15 @@ let app = createApp({
 
     methods:{
         loanData(){
-            axios("http://localhost:8080/clients")
+            axios.get("http://localhost:8080/api/clients/all")
             .then(response =>{ this.data = response
-            this.clients =response.data._embedded.clients})
+            this.clients =response})
           .catch(error => console.log(error))
         },
         
         addClient(){
             console.log(this.lastname)
-            axios.post("http://localhost:8080/clients",{
+            axios.post("http://localhost:8080/api/clients",{
                 "name": this.name,
                 "lastname": this.lastname,
                 "email": this.email,
