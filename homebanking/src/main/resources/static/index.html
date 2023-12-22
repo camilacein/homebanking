@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
+    <title>Homebanking Banco de La Pampa</title>
+</head>
+<body class=" bg-yellow-100 min-h-screen">
+    <div id="app">
+        <header class="flex flex-wrap sm:justify-between justify-center items-center bg-yellow-500">
+            <img class="w-[100px] flex" src="./images/logo.png" alt="">
+            <h1 class="parrafo text-3xl">Banco de La Pampa</h1>
+            <nav class=" flex flex-wrap gap-1 parrafo">
+                <a href="#">Inicio</a>
+                <a href="assets/accounts.html">Cuentas</a>
+                <a href="assets/cards.html">Tarjetas</a>
+                <a href="assets/account.html">Transferencias</a>
+                <a href="#"><img class="w-[40px]" src="images/cerrar-sesion.png" alt=""></a>
+               
+            </nav>
+        </header>
+        <main class="bg-yellow-100 flex-grow-8 flex-col flex-wrap justify-center text-center">
+            <img class="w-full" src="images/banner.jpg" alt="">
+            <h1 class="titulo text-5xl">Bienvenido a Homebanking</h1>
+            <div class="flex m-6 mb-12 flex-col justify-center items-center">
+                <form action="" class="flex parrafo flex-col justify-center gap-9">
+                    <p class="parrafo text-2xl">Ingrese aqui su correo electronico</p>
+                    
+                        <input @input="updateEmail" type="email" name="user" :value="email" placeholder="correo electronico">
+                   <p class="parrafo text-2xl">Ingrese aqui su contraseña</p>
+                        <input @input="updatePassword" type="password" name="password" :value="password" placeholder="contraseña">
+                    </label>
+                    <button type="submit" class="bg-green-700  rounded text-lg"
+              @click.prevent="login()">Ingresar</button>
+                </form>
+            </div>
+            <h2 class="titulo text-4xl">Si no tiene una cuenta registrese</h2>
+            <div class="flex m-6 mb-12 flex-col justify-center items-center">
+                <form action="" class="flex parrafo flex-col justify-center gap-9">
+                    <p class="parrafo text-2xl">Ingrese aqui su nombre</p>
+                    
+                    <input @input="updateName" type="name" :value="name" placeholder="nombre">
+                    <p class="parrafo text-2xl">Ingrese aqui apellido</p>
+                    
+                    <input @input="updateLastname" type="lastname" :value="lastname" placeholder="apellido">
+                    <p class="parrafo text-2xl">Ingrese aqui su correo electronico</p>
+                    
+                        <input @input="updateEmail" type="email" name="user" :value="email" placeholder="correo electronico">
+                   <p class="parrafo text-2xl">Ingrese aqui su contraseña</p>
+                        <input @input="updatePassword" type="password" name="password" :value="password" placeholder="contraseña">
+                    </label>
+                    <button type="submit" class="bg-green-700  rounded text-lg"
+              @click.prevent="register()">Registrar</button>
+                </form>
+            </div>
+
+            
+
+            
+            
+        </main> 
+        <footer class="parrafo flex gap-2 justify-center items-center bg-yellow-500">
+            <p>Camila Cein Cohort 52</p>
+            <a href="#"><img class="w-[40px]" src="images/facebook.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="images/instagram.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="images/whatsapp.png" alt=""></a>
+        </footer>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com%22%3E/"></script>
+        <script type="module" src="tailwind.config.js"></script>
+        <script src="index.js"></script>
+</body>
+</html>
