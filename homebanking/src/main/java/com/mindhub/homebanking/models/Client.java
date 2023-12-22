@@ -19,6 +19,10 @@ public class Client {
     private String name;
     private String lastname;
     private String email;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private RoleType role = RoleType.CLIENT;
+
 
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -29,11 +33,12 @@ public class Client {
 
     }
 
-    public Client( String name, String lastname, String email) {
+    public Client( String name, String lastname, String email, String password) {
 
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.password= password;
     }
     public Set<ClientLoan> getClientLoans() {
         return clientLoans;
@@ -59,6 +64,13 @@ public class Client {
         return id;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -78,6 +90,15 @@ public class Client {
     public Set<Card> getCard() {
         return card;
     }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
+
     public void addClientLoan(ClientLoan clientLoan){
         clientLoan.setClient(this);
         this.clientLoans.add(clientLoan);
@@ -103,7 +124,6 @@ public class Client {
                 ", email='" + email + '\'' +
                 '}';
     }
-
 
 
 

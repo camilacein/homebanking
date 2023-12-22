@@ -13,7 +13,7 @@ let app = createApp({
 
     methods:{
         loanData(){
-            axios("http://localhost:8080/api/clients/1")
+            axios("/api/clients/current")
             .then(response =>{ 
                 this.clients = response.data
                 console.log(this.clients)

@@ -17,28 +17,22 @@ let app = createApp({
         console.log("/accounts/id")
 
         this.loadData()
-        this.loanData()
+     
         
     },
 
     methods:{
         loadData(){
-            axios("/api/clients/1")
+            axios("/api/clients/current")
             .then(response =>{ 
                 this.clients = response.data
                 console.log(this.clients)
-            this.accounts =response.data.accounts.find(account => account.id == this.id)})
+            this.accounts =response.data.accounts.find(account => account.id == this.id)
+            console.log(this.accounts)
+            this.transactions = this.accounts.transaction})
           .catch(error => console.log(error))
         },
-        loanData(){
-            axios.get("/api/accounts/"+this.id+"/transactions")
-            .then(response =>{ 
-               this.transactions= response.data
-                console.log(response)
-                
-            })
-          .catch(error => console.log(error))
-        },
+       
         formatBudget(balance) {
             if (balance !== undefined && balance !== null) {
                 return balance.toLocaleString("en-US", {
