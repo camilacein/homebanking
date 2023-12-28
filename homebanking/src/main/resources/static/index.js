@@ -43,11 +43,6 @@ const options = {
           })
           .catch(error => console.log("Error", error))
       },
-
-    
-    swapregister(){
-      this.signupactive = !this.signupactive
-    },
     clearData(){
       this.email = ""
       this.password = ""
@@ -71,7 +66,12 @@ const options = {
     updateLastname(event){
       this.lastname = event.target.value;
       console.log(this.lastname)
-    }
+    },
+    createAccount(){
+      axios.post("/api/clients/current/accounts")
+      .then(response =>console.log(response))
+      .catch(error => console.log(error))
+  },
   }}
 
 const app = createApp(options)

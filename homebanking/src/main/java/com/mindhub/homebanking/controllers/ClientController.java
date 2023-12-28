@@ -1,7 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.ClientDTO;
+import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +25,10 @@ public class ClientController {
 //        this.clientRepository=clientRepository;
 //    }
 @Autowired
+
 public PasswordEncoder passwordEncoder;
+@Autowired
+    AccountRepository accountRepository;
 
 
 
@@ -61,26 +67,35 @@ public PasswordEncoder passwordEncoder;
         if (clientRepository.existsByEmail(email)){
             return new ResponseEntity<>("El email ya esta registrado", HttpStatus.FORBIDDEN);
         }
-
-
-
         Client client = new Client(name, lastname, email, passwordEncoder.encode(password));
+
+
+        String number;
+        do {
+            number= "VIN"+getRandomNumber(00000001,99999999);
+
+        } while (accountRepository.existsByNumber(number));
+        Account account= new Account(number, LocalDate.now(),0);
         clientRepository.save(client);
+        client.addAccount(account);
+        accountRepository.save(account);
         return new ResponseEntity<>("Registrado con exito", HttpStatus.CREATED);
+
     }
     @GetMapping("/clients/current")
     public ResponseEntity<Object> getOneClient(Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
-        if (client!=null){
+
             ClientDTO clientDTO = new ClientDTO(client);
             return new ResponseEntity<>(clientDTO, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Client not found", HttpStatus.NOT_FOUND);
-        }
 
 
 
 
+
+    }
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
 

@@ -42,6 +42,23 @@ let app = createApp({
                 })
             }
         },
+        formatDate(array){
+            const options = {day:'numeric', month:'long', year:'numeric'}
+            const release = new Date(array.creationDate)
+            return release.toLocaleDateString("en-US",options)
+          },
+          logout() {
+            axios.post("/api/logout")
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        window.location.href = "/index.html"
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
         
 
     }
