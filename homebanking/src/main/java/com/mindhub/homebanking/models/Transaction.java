@@ -12,6 +12,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private TransactionType type;
+
     private double amount;
     private String description;
     private LocalDateTime dateTime;
@@ -25,11 +26,14 @@ public class Transaction {
         this.amount = amount;
         this.description = description;
         this.dateTime = dateTime;
+
     }
 
     public Long getId() {
         return id;
     }
+
+
 
     public TransactionType getType() {
         return type;

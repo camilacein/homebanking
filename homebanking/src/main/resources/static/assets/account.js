@@ -32,6 +32,12 @@ let app = createApp({
             this.transactions = this.accounts.transaction})
           .catch(error => console.log(error))
         },
+        createTransfer(){
+            axios.post("/api/transactions?amount="+this.amount+"&description="+this.description+"&accountOrigen="+this.accountOrigen+"&accountDestino="+this.accountDestino)
+            .then(response =>{console.log(response)
+            window.location.href="/assets/accounts.html"})
+            .catch(error => console.log(error))
+        },
        
         formatBudget(balance) {
             if (balance !== undefined && balance !== null) {
@@ -42,8 +48,8 @@ let app = createApp({
                 })
             }
         },
-        formatDate(array){
-            const options = {day:'numeric', month:'long', year:'numeric'}
+        formatDateTime(array){
+            const options = {day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'numeric', second:'numeric'}
             const release = new Date(array.creationDate)
             return release.toLocaleDateString("en-US",options)
           },

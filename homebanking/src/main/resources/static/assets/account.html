@@ -20,10 +20,10 @@
             <img class="w-[100px]" src="../images/logo.png" alt="">
             <h1 class="parrafo text-3xl">Banco de La Pampa</h1>
             <nav class=" flex flex-wrap gap-1 parrafo">
-                <a href="#">Inicio</a>
-                <a href="/assets/account.html">Cuentas</a>
+                <a href="index.html">Inicio</a>
+                <a href="/assets/accounts.html">Cuentas</a>
                 <a href="cards.html">Tarjetas</a>
-                <a href="account.html">Transferencias</a>
+                <a href="transfers.html">Transferencias</a>
                 <a href="#"><img @click.prevent="logout()" class="w-[40px]" src="../images/cerrar-sesion.png" alt=""></a>
             </nav>
         </header>
@@ -44,30 +44,35 @@
 
             </div>
             <h2 class="titulo text-2xl text-center">Transferencias</h2>
+            <div class="flex flex-wrap items-center justify-center">
+                <template v-if="transactions.length > 0" v-for="transaction in transactions">
+                    <table class="flex gap-2 text- m-4">
+                        <tr class="sm:text-xl text-center border-collapse border border-black ">
+                            
+                            <td>Tipo:</td>
+                            <td v-if="transaction.type=='CREDIT'" class="bg-green-700">{{transaction.type}}</td>
+                            <td v-else class="bg-red-700">{{transaction.type}}</td>
+                        </tr>
+                        <tr class=" text-center border-collapse border border-black ">
+                            <td>Monto:</td>
+                            <td>{{transaction.amount}}</td>
+                        </tr>
+                        <tr class=" text-center border-collapse border border-black ">
+                            <td>Descripcion:</td>
+                            <td>{{transaction.description}}</td>
+                        </tr>
+                        <tr class=" text-center border-collapse border border-black ">
+                            <td>Fecha:</td>
+                            <td>{{transaction.dateTime}}</td>
+                        </tr>
+                  
+                    </table>
+    
+                </template>
 
-            <template v-if="transactions.length > 0" v-for="transaction in transactions">
-                <table class="flex flex-wrap gap-2 items-center justify-center text- m-4">
-                    <tr class="justify-center sm:text-xl text-center border-collapse border border-black">
-                        <td>Tipo:</td>
-                        <td v-if="transaction.type=='CREDIT'" class="bg-green-700">{{transaction.type}}</td>
-                        <td v-else class="bg-red-700">{{transaction.type}}</td>
-                    </tr>
-                    <tr class="justify-center text-center border-collapse border border-black">
-                        <td>Monto:</td>
-                        <td>{{transaction.amount}}</td>
-                    </tr>
-                    <tr class="justify-center text-center border-collapse border border-black">
-                        <td>Descripcion:</td>
-                        <td>{{transaction.description}}</td>
-                    </tr>
-                    <tr class="justify-center text-center border-collapse border border-black">
-                        <td>Fecha:</td>
-                        <td>{{formatDate(transaction.dateTime)}}</td>
-                    </tr>
-              
-                </table>
+            </div>
 
-            </template>
+           
            
             
             
