@@ -22,8 +22,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/index.html", "/index.js", "/tailwind.config.js", "/images/**","style.css").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers("/api/clients/current", "/assets/**" ).hasAuthority("CLIENT")
-                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts", "/api/clients/current/cards", "/api/transactions").hasAuthority("CLIENT")
+                .requestMatchers("/api/clients/current", "/assets/**", "/api/loans" ).hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts", "/api/clients/current/cards", "/api/transactions", "/api/loans").hasAuthority("CLIENT")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .anyRequest().denyAll()); //Se configuran las reglas de autorización para diferentes rutas. Algunas rutas son
         // permitidas sin autenticación (permitAll), algunas requieren ciertos roles (hasAuthority), y otras se niegan (denyAll).

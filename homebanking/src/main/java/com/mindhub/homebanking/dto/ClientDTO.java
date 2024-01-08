@@ -12,6 +12,7 @@ public class ClientDTO {
     private List<AccountDTO> accounts;
     private Set<ClienLoanDTO> clienLoanDTOS;
     private List<CardDTO> cardDTOS;
+
     private String email;
     public List<CardDTO> getCardDTOS() {
         return cardDTOS;

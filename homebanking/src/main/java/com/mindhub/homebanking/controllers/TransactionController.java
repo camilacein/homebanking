@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-@Transactional
+
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
@@ -32,6 +32,7 @@ public class TransactionController {
     ClientRepository clientRepository;
     @Autowired
     AccountRepository accountRepository;
+    @Transactional
 
     @PostMapping("/transactions")
     public ResponseEntity<String> createTransaction(Authentication authentication,
