@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@700&display=swap" rel="stylesheet">
+    <title>Homebanking Banco de La Pampa</title>
+</head>
+
+<body class=" bg-yellow-100 min-h-screen">
+    <div id="app">
+        <header class="flex flex-wrap sm:justify-between justify-center items-center bg-yellow-500">
+            <img class="w-[100px]" src="../images/logo.png" alt="">
+            <h1 class="parrafo text-3xl">Banco de La Pampa</h1>
+            <nav class=" flex flex-wrap gap-1 parrafo">
+                <a href="index.html">Inicio</a>
+                <a href="accounts.html">Cuentas</a>
+                <a href="cards.html">Tarjetas</a>
+                <a href="transfers.html">Transferencias</a>
+                <button><img @click.prevent="logout()" class="w-[40px]" src="../images/cerrar-sesion.png" alt=""></button>
+            </nav>
+        </header>
+        <main class="bg-yellow-100 flex-grow-8 flex-col">
+            <img class="w-full" src="../images/banner.jpg" alt="">
+            <h3 class="titulo text-5xl text-center">Hola {{clients.name}} </h3>
+            <h4 class="titulo text-3xl text-center m-4">Elimina tu tarjeta</h4>
+            <form  class="flex flex-col gap-6 items-center justify-center m-9" action="">
+                <label for="" class="text-2xl parrafo"> Numero de Tarjeta: </label>
+                    <select  v-model="cardId" name="" >
+                        <template v-if="cards.length > 0" v-for="card in cards">
+                            <option class="text-2xl parrafo" :value="card.id">{{card.number}}</option>
+
+                        </template>
+               
+                   </select>
+                  
+                   
+                   <button class="bg-green-700 rounded text-2xl justify-center" @click.prevent="deleteCard">Eliminar tarjeta</button>
+
+        
+            </form>
+
+
+
+
+
+
+
+        </main>
+        <footer class="parrafo flex gap-2 justify-center items-center bg-yellow-500">
+            <p>Camila Cein Cohort 52</p>
+            <a href="#"><img class="w-[40px]" src="../images/facebook.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="../images/instagram.png" alt=""></a>
+            <a href="#"><img class="w-[40px]" src="../images/whatsapp.png" alt=""></a>
+        </footer>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com%22%3E/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="../tailwind.config.js"></script>
+    <script src="delete-card.js"></script>
+</body>
+
+</html>
