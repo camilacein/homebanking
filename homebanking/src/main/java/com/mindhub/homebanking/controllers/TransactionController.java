@@ -9,6 +9,9 @@ import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountServices;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionServices;
 import jakarta.persistence.ManyToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,69 +28,72 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
+    @Autowired
+    ClientService clientService;
+    @Autowired
+    AccountServices accountServices;
 
     @Autowired
-    TransactionRepository transactionRepository;
-    @Autowired
-    ClientRepository clientRepository;
-    @Autowired
-    AccountRepository accountRepository;
-    @Transactional
+    TransactionServices transactionServices;
 
     @PostMapping("/transactions")
     public ResponseEntity<String> createTransaction(Authentication authentication,
                                                     @RequestParam Double amount,
                                                     @RequestParam String description,
                                                     @RequestParam String accountOrigen,
-                                                    @RequestParam String accountDestino){
-        Client client = clientRepository.findByEmail(authentication.getName());
-       Account origenAccount = accountRepository.findByNumber(accountOrigen);
-        Account destinoAccount = accountRepository.findByNumber(accountDestino);
+                                                    @RequestParam String accountDestino,
+                                                    @RequestParam double balance){
+        Client client = clientService.findByEmail(authentication.getName());
+        Account origenAccount = accountServices.findByNumber(accountOrigen);
+        Account destinoAccount = accountServices.findByNumber(accountDestino);
 
 
 
 
-       if (origenAccount.equals(destinoAccount)){
-           return new ResponseEntity<>("Transferencia no realizada, las cuentas no pueden ser iguales", HttpStatus.FORBIDDEN);
-       }
-       if (accountOrigen.isBlank()){
-           return new ResponseEntity<>("Transferencia no realizada, la cuenta de origen no puede estar vacia", HttpStatus.FORBIDDEN);
-       }
-       if (accountDestino.isBlank()){
-           return new ResponseEntity<>("Transferencia no realizada, la cuenta de destino no puede estar vacia", HttpStatus.FORBIDDEN);
-       }
-       if (amount<=0){
-           return new ResponseEntity<>("Transferencia no realizada, tienes que ingresar un monto", HttpStatus.FORBIDDEN);
-       }
-       if (amount.isNaN()){
-           return new ResponseEntity<>("Transferencia no realizada, tienes que ingresar un monto", HttpStatus.FORBIDDEN);
-       }
+        if (origenAccount.equals(destinoAccount)){
+            return new ResponseEntity<>("Transferencia no realizada, las cuentas no pueden ser iguales", HttpStatus.FORBIDDEN);
+        }
+        if (accountOrigen.isBlank()){
+            return new ResponseEntity<>("Transferencia no realizada, la cuenta de origen no puede estar vacia", HttpStatus.FORBIDDEN);
+        }
+        if (accountDestino.isBlank()){
+            return new ResponseEntity<>("Transferencia no realizada, la cuenta de destino no puede estar vacia", HttpStatus.FORBIDDEN);
+        }
+        if (amount<=0){
+            return new ResponseEntity<>("Transferencia no realizada, tienes que ingresar un monto", HttpStatus.FORBIDDEN);
+        }
+        if (amount.isNaN()){
+            return new ResponseEntity<>("Transferencia no realizada, tienes que ingresar un monto", HttpStatus.FORBIDDEN);
+        }
 
-       if (description.isBlank()){
-           return new ResponseEntity<>("Transferencia no realizada, debe ingresar una descripcion", HttpStatus.FORBIDDEN);
-       }
-       if (origenAccount.getBalance()<amount){
-           return new ResponseEntity<>("Fondos insuficientes", HttpStatus.FORBIDDEN);
-       }
-       if (!origenAccount.getClient().getEmail().equals(authentication.getName())){
-           return new ResponseEntity<>("Esta cuenta no te pertenece", HttpStatus.FORBIDDEN);
-       }
+        if (description.isBlank()){
+            return new ResponseEntity<>("Transferencia no realizada, debe ingresar una descripcion", HttpStatus.FORBIDDEN);
+        }
+        if (origenAccount.getBalance()<amount){
+            return new ResponseEntity<>("Fondos insuficientes", HttpStatus.FORBIDDEN);
+        }
+        if (!origenAccount.getClient().getEmail().equals(authentication.getName())){
+            return new ResponseEntity<>("Esta cuenta no te pertenece", HttpStatus.FORBIDDEN);
+        }
 
 
-        Transaction transactionDebito= new Transaction(TransactionType.DEBIT,amount, description, LocalDateTime.now());
-        Transaction transactionCredito= new Transaction(TransactionType.CREDIT,amount, description, LocalDateTime.now());
+
+        Transaction transactionDebito= new Transaction(TransactionType.DEBIT,amount, description, LocalDateTime.now(), origenAccount.getBalance());
+        Transaction transactionCredito= new Transaction(TransactionType.CREDIT,amount, description, LocalDateTime.now(), destinoAccount.getBalance());
 
         origenAccount.setBalance(origenAccount.getBalance()-amount);
         destinoAccount.setBalance(destinoAccount.getBalance()+amount);
 
+
+
         origenAccount.addTransaction(transactionDebito);
         destinoAccount.addTransaction(transactionCredito);
 
-        transactionRepository.save(transactionDebito);
-        transactionRepository.save(transactionCredito);
+        transactionServices.saveTransaction(transactionDebito);
+        transactionServices.saveTransaction(transactionCredito);
 
-        accountRepository.save(origenAccount);
-        accountRepository.save(destinoAccount);
+        accountServices.saveAccount(origenAccount);
+        accountServices.saveAccount(destinoAccount);
 
         return new ResponseEntity<>("Transferencia realizada con exito", HttpStatus.CREATED);
     }

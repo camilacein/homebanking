@@ -20,13 +20,47 @@ let app = createApp({
                 this.clients = response.data
                 console.log(this.clients)
             this.accounts =response.data.accounts
-            this.loans =response.data.clienLoanDTOS})
+            this.loans =response.data.clienLoan})
           .catch(error => console.log(error))
         },
-        createAccount(){
+        createAccount() {
             axios.post("/api/clients/current/accounts")
-            .then(response =>console.log(response))
-            .catch(error => console.log(error))
+                .then(response => {
+                    // La cuenta se ha creado con éxito
+                    console.log(response);
+                    if(response.status.toString().startsWith('2')) {
+                        this.successMsg();
+                        this.statusTransaction = true
+                    } else {
+                        this.errorMsg();
+                        this.statusTransaction = false
+                    }
+        
+                    // Ejecutar SweetAlert centrado después de que la cuenta se haya creado
+                
+                })
+                .catch(error => {
+                    // Manejar errores
+                    console.log(error);
+                });
+        },
+        errorMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "error",
+                title: "Oops...",
+                text: "No se pudo crear la cuenta",
+            })
+        },
+        successMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "success",
+                title: "¡Bien!",
+                text: "Cuenta creada con exito",
+            })
         },
         formatBudget(balance) {
             if (balance !== undefined && balance !== null) {
@@ -56,7 +90,5 @@ let app = createApp({
         },
         
 
-    }
-
-    
+    }  
 }).mount('#app')

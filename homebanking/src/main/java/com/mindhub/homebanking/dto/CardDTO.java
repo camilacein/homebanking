@@ -18,6 +18,8 @@ public class CardDTO {
     private CardColor color;
     private Client client;
 
+    private Boolean state;
+
 
 
     public CardDTO(Card card) {
@@ -29,6 +31,11 @@ public class CardDTO {
         this.truDate = card.getTruDate();
         this.cardHolder = card.getCardHolder();
         this.color = card.getColor();
+        this.state = card.getState();
+    }
+
+    public Boolean getState() {
+        return state;
     }
 
     public Long getId() {

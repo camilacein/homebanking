@@ -54,10 +54,33 @@ let app = createApp({
             console.log(body)
             axios.post("/api/loans",body)
             .then(response =>{console.log(response)
+                if(response.status.toString().startsWith('2')) {
+                    this.successMsg();
+                    this.statusTransaction = true
+                } else {
+                    this.errorMsg();
+                    this.statusTransaction = false
+                }
             window.location.href="/assets/accounts.html"})
             .catch(error => console.log(error))
         },
-       
+        errorMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "error",
+                title: "Oops...",
+                text: "No se pudo eliminar la tarjeta",
+            })
+        },
+        successMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "success",
+                title: "¡Bien!",
+                text: "Tarjeta eliminada con exito",
+            })},
         formatBudget(balance) {
             if (balance !== undefined && balance !== null) {
                 return balance.toLocaleString("en-US", {

@@ -8,6 +8,7 @@ let app = createApp({
           cards:[],	
           selectedColor: "",
           selectedType: "",
+          cardId: "",
         }
     },
     created(){
@@ -20,7 +21,7 @@ let app = createApp({
             .then(response =>{ 
                 this.clients = response.data
                 console.log(this.clients)
-            this.cards =response.data.cardDTOS})
+            this.cards =response.data.cards})
           .catch(error => console.log(error))
         },
         createCard(){
@@ -40,6 +41,12 @@ let app = createApp({
                     console.log(error)
                 })
         },
+        deleteCard(){
+            axios.patch("/api/clients/current/cards/delete?id="+ this.cardId)
+            .then(response =>console.log(response))
+            .catch(error => console.log(error))
+
+        }
 
         
 

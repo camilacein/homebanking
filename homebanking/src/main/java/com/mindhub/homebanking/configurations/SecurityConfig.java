@@ -24,7 +24,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .requestMatchers("/api/clients/current", "/assets/**", "/api/loans" ).hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts", "/api/clients/current/cards", "/api/transactions", "/api/loans").hasAuthority("CLIENT")
-                .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PATCH,"/api/clients/current/cards/delete","/api/clients/current/accounts/delete" ).hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST,"/api/loans/create").hasAuthority("ADMIN")
+                .requestMatchers("/h2-console/**", "/assets/create-loan.html").hasAuthority("ADMIN")
                 .anyRequest().denyAll()); //Se configuran las reglas de autorización para diferentes rutas. Algunas rutas son
         // permitidas sin autenticación (permitAll), algunas requieren ciertos roles (hasAuthority), y otras se niegan (denyAll).
         // Por ejemplo, se permite el acceso a archivos estáticos como CSS e imágenes, se permite la creación de nuevos clientes

@@ -15,13 +15,15 @@ import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication<accountRepository> {
-//	@Autowired
-//	public PasswordEncoder passwordEncoder;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
+	@Autowired
+	public PasswordEncoder passwordEncoder;
 	@Bean
+
 	public CommandLineRunner initData(ClientRepository clientRepository,
 									  AccountRepository accountRepository,
 									  TransactionRepository transactionRepository,
@@ -30,9 +32,11 @@ public class HomebankingApplication<accountRepository> {
 									  CardRepository cardRepository){
 		return args -> {
 
-			/*Client cliente1 = new Client ("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("1234"));
-			Client cliente2 = new Client("Camila", "Cein","ceincamila@gmail.com", passwordEncoder.encode("1234"));
-//			System.out.println(cliente1);
+
+			Client cliente1 = new Client ("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("1234"));
+			Client cliente2 = new Client("Camila", "Cein", "ceincamila@gmail.com", passwordEncoder.encode("1234"));
+			cliente2.setRole(RoleType.ADMIN);
+		System.out.println(cliente1);
 			clientRepository.save(cliente1);
 		    System.out.println(cliente1);
 			clientRepository.save(cliente2);
@@ -56,10 +60,10 @@ public class HomebankingApplication<accountRepository> {
 			System.out.println(account2);
 			System.out.println(account3);
 			System.out.println(account4);
-			Transaction transaction1 = new Transaction(TransactionType.DEBIT, 5000, "debito", LocalDateTime.now());
-			Transaction transaction2 = new Transaction(TransactionType.CREDIT, 5000, "credito", LocalDateTime.now());
-			Transaction transaction3 = new Transaction(TransactionType.DEBIT, 7000, "debito", LocalDateTime.now());
-			Transaction transaction4 = new Transaction(TransactionType.CREDIT, 9000, "credito", LocalDateTime.now());
+			Transaction transaction1 = new Transaction(TransactionType.DEBIT, 5000, "debito", LocalDateTime.now(), 0);
+			Transaction transaction2 = new Transaction(TransactionType.CREDIT, 5000, "credito", LocalDateTime.now(), 0);
+			Transaction transaction3 = new Transaction(TransactionType.DEBIT, 7000, "debito", LocalDateTime.now(), 0);
+			Transaction transaction4 = new Transaction(TransactionType.CREDIT, 9000, "credito", LocalDateTime.now(), 0);
 			account1.addTransaction(transaction1);
 			account1.addTransaction(transaction2);
 			account2.addTransaction(transaction3);
@@ -69,9 +73,9 @@ public class HomebankingApplication<accountRepository> {
 			transactionRepository.save(transaction3);
 			transactionRepository.save(transaction4);
 
-			Loan hipotecario = new Loan("hipotecario",500000, List.of(12,24,36,48,60));
-			Loan personal = new Loan("personal",100000,List.of(6,12,24));
-			Loan automotriz = new Loan("automotriz",300000, List.of(6,12,24,36));
+			Loan hipotecario = new Loan("hipotecario",500000, List.of(12,24,36,48,60), 1.20);
+			Loan personal = new Loan("personal",100000,List.of(6,12,24), 1.10);
+			Loan automotriz = new Loan("automotriz",300000, List.of(6,12,24,36), 1.15);
 			loanRepository.save(hipotecario);
 			loanRepository.save(personal);
 			loanRepository.save(automotriz);
@@ -104,14 +108,17 @@ public class HomebankingApplication<accountRepository> {
 			cardRepository.save(debit);
 			cardRepository.save(credit);
 			cardRepository.save(debit1);
-			*/
-
-
-
-
-
-
-		};
-	}
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+      };
+		}
+//
 }

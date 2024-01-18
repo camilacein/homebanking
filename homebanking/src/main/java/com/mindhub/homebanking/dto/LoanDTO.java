@@ -18,11 +18,18 @@ public class LoanDTO {
 
     private List<Integer> payments;
 
+    private double interest;
+
     public LoanDTO(Loan loan) {
         id = loan.getId();
         name = loan.getName();
         maxAmount = loan.getMaxAmount();
         payments = loan.getPayments();
+        interest = loan.getInterest();
+    }
+
+    public double getInterest() {
+        return interest;
     }
 
     public Long getId() {

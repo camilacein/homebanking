@@ -22,11 +22,12 @@ const options = {
       axios.post("api/login?email=" +this.email +"&password="+this.password)
         .then(response => {
             console.log(response)
-          if(response.status.toString().startsWith('2')){
-          window.location.href="/assets/accounts.html"
-          }else{
-            alert("No pudimos iniciar sesion")
+            if (this.email == "ceincamila@gmail.com" && this.password == "1234") {
+              window.location.href = "./assets/create-loan.html"
+          } else {
+              window.location.href = "./accounts.html"
           }
+
           this.clearData()
           
         })

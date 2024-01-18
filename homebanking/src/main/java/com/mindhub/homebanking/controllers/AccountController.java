@@ -3,9 +3,13 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.dto.TransactionDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountServices;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,54 +21,72 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mindhub.homebanking.utils.Utils.getNumber;
+
 @RestController
 @RequestMapping("/api")
 public class AccountController {
+    //Autowired es una anotación utilizada en Spring Boot para habilitar la inyección automática de dependencias.
     @Autowired
-    private ClientRepository clientRepository;
+    private AccountServices accountServices;
     @Autowired
-    private AccountRepository accountRepository;
-    @GetMapping("/accounts/all")
-    public List <AccountDTO> getAllAccounts(){
-        return accountRepository.findAll()
-                .stream()
-                .map(account -> new AccountDTO(account))
-                .collect(Collectors.toList());
+    private ClientService clientService;
+
+    @RequestMapping("/all/accounts")
+    public List<AccountDTO> getAllAccount() {
+        return accountServices.getAllAccountsDTO();
     }
-//    @GetMapping("/accounts/{id}")
-//    public AccountDTO getAccount(@PathVariable Long id){
-//        return accountRepository.findById(id)
-//                .map(account -> new AccountDTO(account))
-//                .orElse(null);
-//    }
+
     @GetMapping("/accounts/{id}/transactions")
-    public List<TransactionDTO> getOneAccount(@PathVariable Long id){
-        return accountRepository.findById(id)
-                .map(account -> account.getTransactions().stream()
-                        .map(TransactionDTO -> new TransactionDTO(TransactionDTO))
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+    public List<TransactionDTO> getOneAccount(@PathVariable Long id) {
+        return accountServices.findById(id);
+
     }
-    @PostMapping ("/clients/current/accounts")
+    //Sprint7
+    //Creamos un metodo para Crear cuentas
+    @PostMapping("/clients/current/accounts")
     public ResponseEntity<String> CreateAccount(Authentication authentication) {
-        Client client = clientRepository.findByEmail(authentication.getName());
-        if (client.getAccounts().size()>=3){
-            return new ResponseEntity<>("No puedes tener mas de 3 cuentas", HttpStatus.FORBIDDEN); //403
+
+        Client client = clientService.findByEmail(authentication.getName());
+        //Creamos el una condicion para saber si tiene Cuentas, y si tiene más 3.
+        if (client.getAccounts().size() > 2 ){
+            return new ResponseEntity<>("You already have 3 accounts, it is the maximum per customer.", HttpStatus.FORBIDDEN);
         }
-        String number;
-        do {
-            number= "VIN"+getRandomNumber(00000001,99999999);
+        //Creamos un String para posteriormente asignarle un número aleatorio.
+        String numberAccount;
+        do{
+            numberAccount = "VIN-" + getRandomNumber(00000000 , 99999999);
+        }while (accountServices.existsByNumber(numberAccount));
 
-        } while (accountRepository.existsByNumber(number));
-        Account account= new Account(number,LocalDate.now(),0);
+        Account account = new Account(numberAccount, LocalDate.now(), 0);
+        clientService.saveClient(client);
         client.addAccount(account);
-        accountRepository.save(account);
+        accountServices.saveAccount(account);
 
 
-        return new ResponseEntity<>("Cuenta creada con exito", HttpStatus.CREATED);
-
+        return new ResponseEntity<>("Account Created", HttpStatus.CREATED);
     }
+
+    //Creamos el método gerRandomNumber para generar numeros aleatorios para las cuentas.
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
+    @PatchMapping("/clients/current/accounts/delete")
+    public ResponseEntity<String> deleteAccount(@RequestParam Long id , Authentication authentication){
+        Client client = clientService.findByEmail(authentication.getName());
+        Account account = accountServices.findByIdAccount(id);
+
+        if (account.getStateAccount() && account.getClient().getEmail().equals(authentication.getName())){
+            if (account.getBalance() == 0 ) {
+                accountServices.deleteAccount(account);
+                return new ResponseEntity<>("Your Account is Delete", HttpStatus.BAD_REQUEST);
+            }else {
+                return new ResponseEntity<>("Balance must be $0", HttpStatus.FORBIDDEN);
+            }
+        }
+        return new ResponseEntity<>("client is not authenticated or account is already desactive", HttpStatus.FORBIDDEN);
+
+    }
+
 }

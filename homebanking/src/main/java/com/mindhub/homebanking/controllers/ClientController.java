@@ -5,6 +5,8 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountServices;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,34 +18,31 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.mindhub.homebanking.utils.Utils.getNumber;
+
 @RestController
 @RequestMapping ("/api")
 public class ClientController {
     @Autowired
-    private ClientRepository clientRepository;
-//    public ClientController(ClientRepository clientRepository){
-//        this.clientRepository=clientRepository;
-//    }
-@Autowired
+    public PasswordEncoder passwordEncoder;
+    @Autowired
+    private ClientService clientService;
+    @Autowired
+    private AccountServices accountServices;
 
-public PasswordEncoder passwordEncoder;
-@Autowired
-    AccountRepository accountRepository;
 
 
 
     @GetMapping("/clients")
     public List <ClientDTO> getAllClient(){
-        return clientRepository.findAll()
-                .stream()
-                .map(client -> new ClientDTO(client))
-                .collect(Collectors.toList());
+
+        return clientService.getAllClientDTO();
     }
 
 
     @RequestMapping("/clients/{id}")
-    public ClientDTO getClient(@PathVariable Long id){
-        return new ClientDTO(clientRepository.findById(id).orElse( null));
+    public Client getClient(@PathVariable Long id){
+        return  clientService.findById(id);
     }
 
     @PostMapping("/clients")
@@ -64,7 +63,7 @@ public PasswordEncoder passwordEncoder;
         if (password.isBlank()){
             return new ResponseEntity<>("La contraseña no puede estar vacia", HttpStatus.FORBIDDEN);//403
         }
-        if (clientRepository.existsByEmail(email)){
+        if (clientService.existsByEmail(email)){
             return new ResponseEntity<>("El email ya esta registrado", HttpStatus.FORBIDDEN);
         }
         Client client = new Client(name, lastname, email, passwordEncoder.encode(password));
@@ -72,31 +71,31 @@ public PasswordEncoder passwordEncoder;
 
         String number;
         do {
-            number= "VIN"+getRandomNumber(00000001,99999999);
+            number= getNumber();
 
-        } while (accountRepository.existsByNumber(number));
+        } while (accountServices.existsByNumber(number));
         Account account= new Account(number, LocalDate.now(),0);
-        clientRepository.save(client);
+        clientService.saveClient(client);
         client.addAccount(account);
-        accountRepository.save(account);
+        accountServices.saveAccount(account);
         return new ResponseEntity<>("Registrado con exito", HttpStatus.CREATED);
 
     }
     @GetMapping("/clients/current")
     public ResponseEntity<Object> getOneClient(Authentication authentication){
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
 
-            ClientDTO clientDTO = new ClientDTO(client);
-            return new ResponseEntity<>(clientDTO, HttpStatus.OK);
+        ClientDTO clientDTO = new ClientDTO(client);
+        return new ResponseEntity<>(clientDTO, HttpStatus.OK);
+
+
 
 
 
 
 
     }
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
+
 
 
 

@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Pontano+Sans:wght@700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
     <title>Homebanking Banco de La Pampa</title>
 </head>
@@ -37,6 +38,9 @@
                 <div v-if="accounts.length<3" class="flex items-center justify-center" >
                     <button class="bg-green-700 rounded text-center text-3xl" @click="createAccount">Crear cuenta</button>
     
+                </div>
+                <div class="flex items-center justify-center m-6">
+                    <button  class="text-3xl text-center bg-green-700 rounded "><a class="" href="delete-account.html">Eliminar cuenta</a></button>
                 </div>
             
             <div class="flex flex-wrap gap-2 justify-center m-6">
@@ -80,6 +84,7 @@
         </footer>
 
     </div>
+    
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com%22%3E/"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

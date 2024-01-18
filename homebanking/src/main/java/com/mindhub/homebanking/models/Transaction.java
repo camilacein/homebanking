@@ -11,9 +11,11 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private TransactionType type;
 
     private double amount;
+  private double balance;
     private String description;
     private LocalDateTime dateTime;
     @ManyToOne
@@ -21,12 +23,23 @@ public class Transaction {
 
     public Transaction(){}
 
-    public Transaction(TransactionType type, double amount, String description, LocalDateTime dateTime) {
+    public Transaction(TransactionType type, double amount, String description, LocalDateTime dateTime, double balance) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.dateTime = dateTime;
+        this.balance = balance;
 
+
+
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public Long getId() {
@@ -84,6 +97,7 @@ public class Transaction {
                 ", description='" + description + '\'' +
                 ", dateTime=" + dateTime +
                 ", account=" + account +
+                ",balance=" + balance +
                 '}';
     }
 }

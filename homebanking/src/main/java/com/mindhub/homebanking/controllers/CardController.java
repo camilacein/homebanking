@@ -3,34 +3,34 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.CardServices;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.plaf.synth.ColorType;
 import java.time.LocalDate;
 
+import static com.mindhub.homebanking.utils.Utils.getCvv;
+import static com.mindhub.homebanking.utils.Utils.getRandomNumber;
+
 @RestController
 @RequestMapping("/api")
 public class CardController {
-
-
     @Autowired
-    ClientRepository clientRepository;
+    ClientService clientService;
     @Autowired
-    CardRepository cardRepository;
+    CardServices cardServices;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<String> createCards(
             Authentication authentication,
     @RequestParam CardType cardType,
     @RequestParam CardColor colors){
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
         long colorType = client.getCard().stream()
                 .filter(card -> card.getColor() == colors && card.getCardType() == cardType)
                 .count();
@@ -50,27 +50,34 @@ public class CardController {
                     "Solo puedes tener 6 tarjetas en total", HttpStatus.FORBIDDEN);
         }
 
-        String number= getRandomNumber() ;
-        int cvv= (int) (Math.random() * 999+100);
+        String number=  getRandomNumber();
+        int cvv= getCvv();
         String cardHolder = client.getName() +" "+ client.getLastname();
         LocalDate fromDate= LocalDate.now();
         LocalDate truDate= LocalDate.now().plusYears(5);
 
-        Card card= new Card(cardType,number, cvv, fromDate, truDate, cardHolder, colors);
+        Card card= new Card(cardType, number, cvv, fromDate, truDate, cardHolder, colors );
         client.addCard(card);
-        cardRepository.save(card);
+        cardServices.saveCard(card);
 
 
         return new ResponseEntity<>("Tarjeta creada con exito", HttpStatus.CREATED);
 
     }
-    private String getRandomNumber() {
-        StringBuilder cardNumber = new StringBuilder();
-        for (int i = 0; i<4; i++){
-            int seccion=(int) (Math.random()*9000+1000);
-            cardNumber.append(seccion).append("-");
+
+    @PatchMapping("/clients/current/cards/delete")
+    public ResponseEntity<String> deleteCards(
+            @RequestParam Long id, Authentication authentication){
+        Client client = clientService.findByEmail(authentication.getName());
+        Card cards = cardServices.findById(id);
+        if (cards.getState()&& cards.getClient().getEmail().equals(authentication.getName())){
+            cardServices.cardDelete(cards);
+            return  ResponseEntity.ok("Tarjeta eliminada con exito");
+
         }
-        return cardNumber.substring(0,cardNumber.length()-1);
+        return new ResponseEntity<>("Tarjeta eliminada", HttpStatus.BAD_REQUEST);
+
+
     }
     }
 

@@ -20,12 +20,36 @@ let app = createApp({
             .then(response =>{ 
                 this.clients = response.data
                 console.log(this.clients)
-            this.cards =response.data.cardDTOS})
+            this.cards =response.data.cards})
           .catch(error => console.log(error))
         },
+        errorMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "error",
+                title: "Oops...",
+                text: "No se pudo crear la tarjeta",
+            })
+        },
+        successMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "success",
+                title: "¡Bien!",
+                text: "Tarjeta creada con exito",
+            })},
         createCard(){
             axios.post("/api/clients/current/cards?cardType="+this.selectedType+"&colors="+this.selectedColor)
             .then(response =>{console.log(response)
+                if(response.status.toString().startsWith('2')) {
+                    this.successMsg();
+                    this.statusTransaction = true
+                } else {
+                    this.errorMsg();
+                    this.statusTransaction = false
+                }
             window.location.href="/assets/cards.html"})
             .catch(error => console.log(error))
         },

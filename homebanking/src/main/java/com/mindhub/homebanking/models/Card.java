@@ -8,12 +8,14 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
+private Boolean state = true;
 private CardType cardType;
 private String number;
 private int CVV;
 private LocalDate fromDate;
 private LocalDate truDate;
 private String cardHolder;
+
 private CardColor color;
     @ManyToOne
     @JoinColumn (name="client_id")
@@ -30,6 +32,15 @@ private Client client;
         this.truDate = truDate;
         this.cardHolder = cardHolder;
         this.color = color;
+
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
     public void setCardType(CardType cardType) {
@@ -112,6 +123,7 @@ private Client client;
                 ", cardHolder='" + cardHolder + '\'' +
                 ", color=" + color +
                 ", client=" + client +
+                ",state="+ state +
                 '}';
     }
 }
