@@ -41,16 +41,10 @@ public class TransactionController {
                                                     @RequestParam Double amount,
                                                     @RequestParam String description,
                                                     @RequestParam String accountOrigen,
-                                                    @RequestParam String accountDestino,
-                                                    @RequestParam double balance){
-        Client client = clientService.findByEmail(authentication.getName());
-        Account origenAccount = accountServices.findByNumber(accountOrigen);
-        Account destinoAccount = accountServices.findByNumber(accountDestino);
+                                                    @RequestParam String accountDestino){
 
 
-
-
-        if (origenAccount.equals(destinoAccount)){
+        if (accountOrigen.equals(accountDestino)){
             return new ResponseEntity<>("Transferencia no realizada, las cuentas no pueden ser iguales", HttpStatus.FORBIDDEN);
         }
         if (accountOrigen.isBlank()){
@@ -59,24 +53,27 @@ public class TransactionController {
         if (accountDestino.isBlank()){
             return new ResponseEntity<>("Transferencia no realizada, la cuenta de destino no puede estar vacia", HttpStatus.FORBIDDEN);
         }
+        if (description.isBlank()){
+            return new ResponseEntity<>("Transferencia no realizada, debe ingresar una descripcion", HttpStatus.FORBIDDEN);
+        }
         if (amount<=0){
             return new ResponseEntity<>("Transferencia no realizada, tienes que ingresar un monto", HttpStatus.FORBIDDEN);
         }
         if (amount.isNaN()){
             return new ResponseEntity<>("Transferencia no realizada, tienes que ingresar un monto", HttpStatus.FORBIDDEN);
         }
+        Account origenAccount = accountServices.findByNumber(accountOrigen);
+        Account destinoAccount = accountServices.findByNumber(accountDestino);
 
-        if (description.isBlank()){
-            return new ResponseEntity<>("Transferencia no realizada, debe ingresar una descripcion", HttpStatus.FORBIDDEN);
-        }
         if (origenAccount.getBalance()<amount){
             return new ResponseEntity<>("Fondos insuficientes", HttpStatus.FORBIDDEN);
         }
         if (!origenAccount.getClient().getEmail().equals(authentication.getName())){
             return new ResponseEntity<>("Esta cuenta no te pertenece", HttpStatus.FORBIDDEN);
         }
-
-
+        if (origenAccount== null|| destinoAccount == null){
+            return new ResponseEntity<>("No se encuentra la cuenta destino o origen", HttpStatus.FORBIDDEN);
+        }
 
         Transaction transactionDebito= new Transaction(TransactionType.DEBIT,amount, description, LocalDateTime.now(), origenAccount.getBalance());
         Transaction transactionCredito= new Transaction(TransactionType.CREDIT,amount, description, LocalDateTime.now(), destinoAccount.getBalance());

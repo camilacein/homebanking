@@ -25,7 +25,7 @@
                 <a href="accounts.html">Cuentas</a>
                 <a href="cards.html">Tarjetas</a>
                 <a href="transfers.html">Transferencias</a>
-                <a href="#"><img class="w-[40px]" src="../images/cerrar-sesion.png" alt=""></a>
+                <button><img @click.prevent="logout()" class="w-[40px]" src="../images/cerrar-sesion.png" alt=""></button>
                
             </nav>
         </header>
@@ -49,14 +49,19 @@
                         <p>Numero de Cuenta: {{account.number}}</p>
                         <p>Monto: {{formatBudget(account.balance)}}</p>
                         <p>Fecha de creacion: {{account.creationDate}}</p>
+                        <p>Tipo de Cuenta: {{account.accountType}}</p>
                         <button><a v-bind:href="'./account.html?id='+account.id" class="bg-green-700 rounded">Ver transferencias</a></button>
                     </div>
                  </template>
 
             </div>
             <h2 class="titulo text-4xl text-center">Prestamos</h2>
-            <div class="flex items-center justify-center" >
+            <div class="flex items-center justify-center m-6" >
                 <button class="bg-green-700 rounded text-center text-3xl" > <a href="loan-application.html">Pedir prestamo</a></button>
+
+            </div>
+            <div class="flex items-center justify-center" >
+                <button class="bg-green-700 rounded text-center text-3xl" > <a href="loan-pay.html">Pagar prestamo</a></button>
 
             </div>
             <div class="flex flex-wrap gap-2 justify-center m-6" >
@@ -76,7 +81,7 @@
             
             
         </main> 
-        <footer class="parrafo flex gap-2 justify-center items-center bg-yellow-500">
+        <footer class="parrafo flex gap-2 justify-center items-center bg-yellow-500 ">
             <p>Camila Cein Cohort 52</p>
             <a href="#"><img class="w-[40px]" src="../images/facebook.png" alt=""></a>
             <a href="#"><img class="w-[40px]" src="../images/instagram.png" alt=""></a>

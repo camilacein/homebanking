@@ -24,25 +24,33 @@ let app = createApp({
           .catch(error => console.log(error))
         },
         createAccount() {
-            axios.post("/api/clients/current/accounts")
-                .then(response => {
-                    // La cuenta se ha creado con éxito
-                    console.log(response);
-                    if(response.status.toString().startsWith('2')) {
-                        this.successMsg();
-                        this.statusTransaction = true
-                    } else {
-                        this.errorMsg();
-                        this.statusTransaction = false
+           
+                Swal.fire({
+                    title: "Elige que tipo de cuenta quieres crear",
+                    text: "Selecciona entre Ahorro o Corriente",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#E6A51D",
+                    cancelButtonColor: "#E6A51D",
+                    confirmButtonText: "SAVINGS",
+                    cancelButtonText: "CHECKING",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post("/api/clients/current/accounts?accountType=SAVINGS")
+                        .then(response => { 
+                            this.loanData()
+                            console.log(response)
+                        }).catch(e => console.log(e))
+                    }else{
+                        axios.post("/api/clients/current/accounts?accountType=CHECKING")
+                        .then(response => { 
+                            this.loanData()
+                        console.log(response)
+                        }).catch(e => console.log(e))
+    
                     }
-        
-                    // Ejecutar SweetAlert centrado después de que la cuenta se haya creado
-                
-                })
-                .catch(error => {
-                    // Manejar errores
-                    console.log(error);
-                });
+                  });
+    
         },
         errorMsg(){
             Swal.fire({

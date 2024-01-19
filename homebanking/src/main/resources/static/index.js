@@ -23,9 +23,9 @@ const options = {
         .then(response => {
             console.log(response)
             if (this.email == "ceincamila@gmail.com" && this.password == "1234") {
-              window.location.href = "./assets/create-loan.html"
+              window.location.href = "./admin/create-loan.html"
           } else {
-              window.location.href = "./accounts.html"
+              window.location.href = "/assets/accounts.html"
           }
 
           this.clearData()

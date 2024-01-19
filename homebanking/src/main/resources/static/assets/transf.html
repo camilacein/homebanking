@@ -40,9 +40,9 @@
             <h4 class="titulo text-3xl text-center m-4">Transferencias propias</h4>
             <form class="flex flex-col gap-6 items-center justify-center m-9" action="">
                 <label for="" class="text-2xl parrafo"> Cuenta de origen: </label>
-                    <select class="text-2xl parrafo" v-model="accountOrigen" name="">
+                    <select required class="text-2xl parrafo" v-model="accountOrigen" name="">
                         <template v-if="accounts.length > 0" v-for="account in accounts">
-                            <option class="text-2xl parrafo">{{account.number}}</option>
+                            <option class="text-2xl parrafo" :value="account.number">{{account.number}} $ {{account.balance}}</option>
 
                         </template>
                         
@@ -50,11 +50,11 @@
                        
                    </select>
                    <label for="" class="text-2xl parrafo" >Monto:</label>
-                   <input type="number" name="" id="" v-model="amount">
+                   <input required type="number"  v-model="amount">
                    <label for="" class="text-2xl parrafo" >Descripcion:</label>
-                   <input type="text" name="" id="" v-model="description">
+                   <input required type="text" v-model="description">
                    <label for="" class="text-2xl parrafo" >Cuenta destino</label>
-                   <select class="text-2xl parrafo"  v-model="accountDestino" name="" id="">
+                   <select required class="text-2xl parrafo"  v-model="accountDestino" name="" id="">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
                         <option class="text-2xl parrafo">{{account.number}}</option>
 

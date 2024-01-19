@@ -42,10 +42,10 @@ public class HomebankingApplication<accountRepository> {
 			clientRepository.save(cliente2);
 			System.out.println(cliente2);
 
-			Account account1= new Account("VIN001", LocalDate.now(),5000);
-			Account account2= new Account("VIN002",LocalDate.now().plusDays(1),7500);
-			Account account3= new Account("VIN003", LocalDate.now(), 10000);
-			Account account4= new Account("VIN004", LocalDate.now(),5000);
+			Account account1= new Account("VIN001", LocalDate.now(),5000, AccountType.SAVINGS);
+			Account account2= new Account("VIN002",LocalDate.now().plusDays(1),7500, AccountType.CHECKING);
+			Account account3= new Account("VIN003", LocalDate.now(), 10000, AccountType.CHECKING);
+			Account account4= new Account("VIN004", LocalDate.now(),5000, AccountType.SAVINGS);
 			cliente1.addAccount(account1);
 			cliente1.addAccount(account2);
 			cliente2.addAccount(account3);

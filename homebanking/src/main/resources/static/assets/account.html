@@ -27,7 +27,7 @@
                 <a href="#"><img @click.prevent="logout()" class="w-[40px]" src="../images/cerrar-sesion.png" alt=""></a>
             </nav>
         </header>
-        <main class="bg-yellow-100 flex-grow-8">
+        <main class="bg-yellow-100 flex-grow-8 mb-6">
 
             <h3 class="titulo text-5xl text-center">Hola {{clients.name}} </h3>
         
@@ -43,8 +43,8 @@
 
 
             </div>
-            <h2 class="titulo text-2xl text-center">Transferencias</h2>
-            <div class="flex flex-wrap items-center justify-center">
+            <h2 class="titulo text-3xl text-center">Transferencias</h2>
+            <div class="flex flex-wrap items-center justify-center mb-12">
                 <template v-if="transactions.length > 0" v-for="transaction in transactions">
                     <table class="flex gap-2 text- m-4">
                         <tr class="sm:text-xl text-center border-collapse border border-black ">

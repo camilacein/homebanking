@@ -40,6 +40,41 @@ public class LoanController {
             return loanServices.getLoansDTO();
         }
 
+    @PatchMapping ("/loans")
+    public ResponseEntity<String> payLoan (Authentication authentication,
+                                           @RequestParam Long id,
+                                           @RequestParam String number){
+
+        Client client = clientService.findByEmail(authentication.getName());
+
+        ClientLoan clientLoan = clientLoanServices.findById(id);
+        Account account = accountServices.findByNumber(number);
+        double interest = clientLoan.getLoan().getInterest();
+
+        Double paymentAmount = (clientLoan.getAmount() / clientLoan.getPayments()) * interest ;
+        System.out.println(paymentAmount);
+
+        if (client == null ){
+            return new ResponseEntity<>("Debes iniciar sesion", HttpStatus.FORBIDDEN);
+        }
+
+        if (account.getBalance() < paymentAmount){
+            return new ResponseEntity<>(" Fondos insuficientes", HttpStatus.FORBIDDEN);
+        }
+
+        clientLoan.setAmount(clientLoan.getAmount() - paymentAmount);
+        clientLoan.setPayments(clientLoan.getPayments() - 1);
+        clientLoanServices.saveClientLoan(clientLoan);
+
+        account.setBalance(account.getBalance() - paymentAmount);
+
+        accountServices.saveAccount(account);
+
+
+        return new ResponseEntity<>("Prestamo pagado", HttpStatus.CREATED);
+
+    }
+
 
         @Transactional
         @PostMapping("/loans/create")

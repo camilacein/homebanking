@@ -46,7 +46,12 @@ let app = createApp({
             .then(response =>console.log(response))
             .catch(error => console.log(error))
 
-        }
+        },
+        expiredCard(truDate){
+            const currentDate = new Date()
+            const expirationDate = new Date(truDate)
+            return expirationDate < currentDate
+        },
 
         
 

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CardServices {
     void saveCard (Card card);
 
+
     Card findById (Long id);
     boolean existsByNumber (String number);
+    Card findCardByNumber(String number);
 
     void cardDelete(Card card);
 }

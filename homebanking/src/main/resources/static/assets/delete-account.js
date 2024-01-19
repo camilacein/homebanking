@@ -5,9 +5,7 @@ let app = createApp({
     data(){
         return{
             clients: [],
-          cards:[],	
-          selectedColor: "",
-          selectedType: "",
+            accounts:[],
           accountNumber: "",
         }
     },
@@ -20,8 +18,8 @@ let app = createApp({
             axios("/api/clients/current")
             .then(response =>{ 
                 this.clients = response.data
-                console.log(this.clients)
-            this.cards =response.data.cards})
+                this.accounts= response.data.accounts
+                console.log(this.clients)})
           .catch(error => console.log(error))
         },
         logout() {
@@ -36,8 +34,8 @@ let app = createApp({
                     console.log(error)
                 })
         },
-        deleteAccount(){
-            axios.patch("/api/clients/current/account/delete?id="+ this.accountNumber)
+        deleteAccount(accountNumber){
+            axios.patch("/api/accounts/"+ this.accountNumber)
             .then(response => {console.log(response)
             if(response.status.toString().startsWith('2')) {
                 this.successMsg();
@@ -55,7 +53,7 @@ let app = createApp({
                 color: "black",
                 icon: "error",
                 title: "Oops...",
-                text: "No se pudo eliminar la tarjeta",
+                text: "No se pudo eliminar la cuenta",
             })
         },
         successMsg(){
@@ -64,7 +62,7 @@ let app = createApp({
                 color: "black",
                 icon: "success",
                 title: "¡Bien!",
-                text: "Tarjeta eliminada con exito",
+                text: "Cuenta eliminada con exito",
             })},
 
         

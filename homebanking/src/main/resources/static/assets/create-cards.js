@@ -50,7 +50,7 @@ let app = createApp({
                     this.errorMsg();
                     this.statusTransaction = false
                 }
-            window.location.href="/assets/cards.html"})
+           setTimeout(() => window.location.href="/assets/cards.html", 500)})
             .catch(error => console.log(error))
         },
         logout() {

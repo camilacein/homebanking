@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.dto.TransactionDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
@@ -45,7 +46,7 @@ public class AccountController {
     //Sprint7
     //Creamos un metodo para Crear cuentas
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<String> CreateAccount(Authentication authentication) {
+    public ResponseEntity<String> CreateAccount(Authentication authentication, @RequestParam AccountType accountType) {
 
         Client client = clientService.findByEmail(authentication.getName());
         //Creamos el una condicion para saber si tiene Cuentas, y si tiene más 3.
@@ -58,7 +59,7 @@ public class AccountController {
             numberAccount = "VIN-" + getRandomNumber(00000000 , 99999999);
         }while (accountServices.existsByNumber(numberAccount));
 
-        Account account = new Account(numberAccount, LocalDate.now(), 0);
+        Account account = new Account(numberAccount, LocalDate.now(), 0, accountType);
         clientService.saveClient(client);
         client.addAccount(account);
         accountServices.saveAccount(account);
@@ -72,21 +73,28 @@ public class AccountController {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    @PatchMapping("/clients/current/accounts/delete")
-    public ResponseEntity<String> deleteAccount(@RequestParam Long id , Authentication authentication){
+    @PatchMapping("/accounts/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable Long id , Authentication authentication) {
         Client client = clientService.findByEmail(authentication.getName());
         Account account = accountServices.findByIdAccount(id);
+        boolean hasThisAccount = client.getAccounts().contains(account);
 
-        if (account.getStateAccount() && account.getClient().getEmail().equals(authentication.getName())){
-            if (account.getBalance() == 0 ) {
-                accountServices.deleteAccount(account);
-                return new ResponseEntity<>("Your Account is Delete", HttpStatus.BAD_REQUEST);
-            }else {
-                return new ResponseEntity<>("Balance must be $0", HttpStatus.FORBIDDEN);
-            }
+
+        if (!account.getClient().getEmail().equals(client.getEmail())) {
+            return new ResponseEntity<>("This account doesn't match with the current client", HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>("client is not authenticated or account is already desactive", HttpStatus.FORBIDDEN);
 
-    }
+        if (hasThisAccount) {
+            account.setStateAccount(false);
 
-}
+            if (account.getBalance() == 0) {
+                accountServices.saveAccount(account);
+                return new ResponseEntity<>("Account deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("error: an account with balance greater than 0 can't be deleted", HttpStatus.FORBIDDEN);
+            }
+        } else {
+            return new ResponseEntity<>("error: try again later", HttpStatus.FORBIDDEN);
+        }
+
+    }}

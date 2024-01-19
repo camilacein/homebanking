@@ -38,15 +38,14 @@
             <form  class="flex flex-col gap-6 items-center justify-center m-9" action="">
                 <label for="" class="text-2xl parrafo"> Numero de cuenta: </label>
                     <select  v-model="accountNumber" name="" >
-                        <template v-if="accounts.length > 0" v-for="account in accounts">
+                        <template v-if="accounts.length > 0"  v-for="account in accounts">
                             <option class="text-2xl parrafo" :value="account.id">{{account.number}}</option>
 
                         </template>
                
                    </select>
-                  
                    
-                   <button class="bg-green-700 rounded text-2xl justify-center" @click.prevent="deleteAccount">Eliminar Cuenta</button>
+                   <button class="bg-green-700 rounded text-2xl justify-center" @click.prevent="deleteAccount(accountNumber)">Eliminar Cuenta</button>
 
         
             </form>

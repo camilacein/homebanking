@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -50,7 +51,8 @@ public class ClientController {
             @RequestParam String name,
             @RequestParam  String lastname,
             @RequestParam  String email,
-            @RequestParam  String password){
+            @RequestParam  String password,
+             @RequestParam AccountType accountType){
         if (name.isBlank()){
             return new ResponseEntity<>("El nombre no puede estar vacio", HttpStatus.FORBIDDEN); //403
         }
@@ -74,7 +76,7 @@ public class ClientController {
             number= getNumber();
 
         } while (accountServices.existsByNumber(number));
-        Account account= new Account(number, LocalDate.now(),0);
+        Account account= new Account(number, LocalDate.now(),0, accountType);
         clientService.saveClient(client);
         client.addAccount(account);
         accountServices.saveAccount(account);

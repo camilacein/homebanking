@@ -21,12 +21,12 @@ public class SecurityConfig {
         // Se realiza utilizando un objeto httpsecurity que se pasa como parametro al metodo
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/index.html", "/index.js", "/tailwind.config.js", "/images/**","style.css").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/clients", "/api/cards/payments").permitAll()
                 .requestMatchers("/api/clients/current", "/assets/**", "/api/loans" ).hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts", "/api/clients/current/cards", "/api/transactions", "/api/loans").hasAuthority("CLIENT")
-                .requestMatchers(HttpMethod.PATCH,"/api/clients/current/cards/delete","/api/clients/current/accounts/delete" ).hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.PATCH,"/api/clients/current/cards/delete","/api/accounts/*", "/api/loans" ).hasAuthority("CLIENT")
+                .requestMatchers("/h2-console/**", "/admin/**", "/api/loans","/api/loans/create","/assets/accounts.html","/api/clients/current").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST,"/api/loans/create").hasAuthority("ADMIN")
-                .requestMatchers("/h2-console/**", "/assets/create-loan.html").hasAuthority("ADMIN")
                 .anyRequest().denyAll()); //Se configuran las reglas de autorización para diferentes rutas. Algunas rutas son
         // permitidas sin autenticación (permitAll), algunas requieren ciertos roles (hasAuthority), y otras se niegan (denyAll).
         // Por ejemplo, se permite el acceso a archivos estáticos como CSS e imágenes, se permite la creación de nuevos clientes

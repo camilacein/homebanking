@@ -14,6 +14,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Boolean stateAccount = true;
+    private AccountType accountType;
 
     private String number;
     private LocalDate creationDate;
@@ -26,17 +27,26 @@ public class Account {
     private Client client;
     public Account(){}
 
-    public Account(String number, LocalDate creationDate, double balance ) {
+    public Account(String number, LocalDate creationDate, double balance, AccountType accountType ) {
 
         this.number = number;
 
         this.creationDate = creationDate;
         this.balance = balance;
+        this.accountType = accountType;
 
     }
     public void addTransaction(Transaction transaction){
         transaction.setAccount(this);
         transactions.add(transaction);
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
 
     public Boolean getStateAccount() {

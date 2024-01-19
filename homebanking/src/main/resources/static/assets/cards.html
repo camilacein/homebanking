@@ -62,7 +62,7 @@
                             <div class="flex justify-between">
                                 <div class="">
                                     <p class="font-light">
-                                        Name
+                                        Nombre
                                         </h1>
                                     <p class="font-medium tracking-widest">
                                         {{card.cardHolder}}
@@ -72,7 +72,7 @@
                             </div>
                             <div class="pt-1">
                                 <p class="font-light">
-                                    Card Number
+                                    Numero de tarjeta
                                     </h1>
                                 <p class="font-medium tracking-more-wider">
                                     {{card.number}}
@@ -82,7 +82,7 @@
                                 <div class="flex justify-between">
                                     <div class="">
                                         <p class="font-light text-xs">
-                                            Valid
+                                            Valido
                                             </h1>
                                         <p class="font-medium tracking-wider text-xs sm:text-sm">
                                             {{card.fromDate}}
@@ -90,11 +90,12 @@
                                     </div>
                                     <div class="">
                                         <p class="font-light text-xs text-xs">
-                                            Expiry
+                                            Expira
                                             </h1>
                                         <p class="font-medium tracking-wider text-xs sm:text-sm">
                                             {{card.truDate}}
                                         </p>
+                                        <p v-if="expiredCard(card.truDate)" class="text-[#FFFFFF] font-bold text-2xl bg-[#ff0000e0] text-center rounded-lg">EXPIRADA</p>
                                     </div>
 
                                     <div class="">
@@ -150,6 +151,7 @@
                                     <p class="font-medium tracking-wider text-xs sm:text-sm">
                                         {{card.truDate}}
                                     </p>
+                                    <p v-if="expiredCard(card.truDate)" class="text-[#FFFFFF] font-bold text-2xl bg-[#ff0000e0] text-center rounded-lg">EXPIRADA</p>
                                 </div>
 
                                 <div class="">
@@ -206,6 +208,7 @@
                                 <p class="font-medium tracking-wider text-xs sm:text-sm">
                                     {{card.truDate}}
                                 </p>
+                                <p v-if="expiredCard(card.truDate)" class="text-[#FFFFFF] font-bold text-2xl bg-[#ff0000e0] text-center rounded-lg">EXPIRADA</p>
                             </div>
 
                             <div class="">

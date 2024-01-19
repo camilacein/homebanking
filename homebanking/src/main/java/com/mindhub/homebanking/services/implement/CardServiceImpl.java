@@ -51,4 +51,9 @@ public class CardServiceImpl implements CardServices {
     public boolean existsByNumber(String number) {
         return false;
     }
+
+    @Override
+    public Card findCardByNumber(String number) {
+        return cardRepository.findByNumber(number);
+    }
 }

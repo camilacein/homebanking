@@ -28,7 +28,14 @@ let app = createApp({
         createTransfer(){
             axios.post("/api/transactions?amount="+this.amount+"&description="+this.description+"&accountOrigen="+this.accountOrigen+"&accountDestino="+this.accountDestino)
             .then(response =>{console.log(response)
-            window.location.href="/assets/accounts.html"})
+                if(response.status.toString().startsWith('2')) {
+                    this.successMsg();
+                    this.statusTransaction = true
+                } else {
+                    this.errorMsg();
+                    this.statusTransaction = false
+                }
+            setTimeout(() => window.location.href="/assets/accounts.html", 500)})
             .catch(error => console.log(error))
         },
         logout() {
@@ -42,6 +49,24 @@ let app = createApp({
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        errorMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "error",
+                title: "Oops...",
+                text: "No se pudo crear la cuenta",
+            })
+        },
+        successMsg(){
+            Swal.fire({
+                background: "white",
+                color: "black",
+                icon: "success",
+                title: "¡Bien!",
+                text: "Cuenta creada con exito",
+            })
         },
 
         

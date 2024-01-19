@@ -12,5 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RepositoryRestResource
 public interface CardRepository extends JpaRepository <Card, Long> {
     boolean existsByNumber (String number);
+    Card findByNumber (String number);
 
 }

@@ -7,4 +7,5 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource
 public interface ClientLoanRepository extends JpaRepository <ClientLoan, Long> {
+
 }
