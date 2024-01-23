@@ -45,9 +45,25 @@
             </div>
             <h2 class="titulo text-3xl text-center">Transferencias</h2>
             <div class="flex flex-wrap items-center justify-center mb-12">
-                <template v-if="transactions.length > 0" v-for="transaction in transactions">
-                    <table class="flex gap-2 text- m-4">
-                        <tr class="sm:text-xl text-center border-collapse border border-black ">
+                
+                    <table class=" bg-yellow-300 gap-2 text- m-4">
+                        <thead class="sm:text-xl text-center border-collapse border border-black ">
+                           <th>Tipo</th>
+                           <th>Monto</th>
+                           <th>Descripcion</th>
+                           <th>Fecha</th>
+                           <th>Balance</th>
+                        </thead>
+                        <template v-if="transactions.length > 0" v-for="transaction in transactions">
+                        <tbody class="sm:text-xl text-center border-collapse border border-black">
+                            <td v-if="transaction.type=='CREDIT'" class="bg-green-700">{{transaction.type}}</td>
+                            <td v-else class="bg-red-700">{{transaction.type}}</td>
+                            <td>{{transaction.amount}}</td>
+                            <td>{{transaction.description}}</td>
+                            <td>{{transaction.dateTime}}</td>
+                            <td>{{transaction.balance}}</td>
+                        </tbody>
+                        <!-- <tr class="sm:text-xl text-center border-collapse border border-black ">
                             
                             <td>Tipo:</td>
                             <td v-if="transaction.type=='CREDIT'" class="bg-green-700">{{transaction.type}}</td>
@@ -68,11 +84,11 @@
                         <tr class=" text-center border-collapse border border-black ">
                             <td>Balance</td>
                             <td>{{transaction.balance}}</td>
-                        </tr>
-                  
+                        </tr> -->
+                    </template>
                     </table>
     
-                </template>
+                
 
             </div>
 

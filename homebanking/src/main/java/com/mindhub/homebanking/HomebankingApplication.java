@@ -20,6 +20,7 @@ public class HomebankingApplication<accountRepository> {
 	public static void main(String[] args) {
 		SpringApplication.run(HomebankingApplication.class, args);
 	}
+
 	@Autowired
 	public PasswordEncoder passwordEncoder;
 	@Bean
