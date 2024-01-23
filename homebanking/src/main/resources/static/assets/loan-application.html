@@ -41,7 +41,7 @@
             <h4 class="titulo text-3xl text-center m-4">Prestamos</h4>
             <form class="flex flex-col gap-6 items-center justify-center m-9" action="">
                 <label for="" class="text-2xl parrafo"> Tipo de prestamo </label>
-                <select @change="Payments" class="text-2xl parrafo" v-model="id" name="">
+                <select class="border border-black" @change="Payments" class="text-2xl parrafo" v-model="id" name="">
                     <template v-if="loans.length > 0" v-for="loan in loans">
                         <option :value="loan.id" class="text-2xl parrafo">{{loan.name}}</option>
 
@@ -51,15 +51,15 @@
 
                 </select>
                 <label for="" class="text-2xl parrafo">Monto:</label>
-                <input type="number" name="" id="" v-model="amount">
+                <input class="border border-black" type="number" name="" id="" v-model="amount">
                 <label for="">Cuotas:</label>
-                <select  v-model="payments" >
+                <select class="border border-black"  v-model="payments" >
                     <template  v-for="payment in paymentsFilter">
                         <option :value="payment" class="text-2xl parrafo" >{{payment}}</option>
                     </template>
                 </select>
                 <label for="" class="text-2xl parrafo">Cuenta destino:</label>
-                <select class="text-2xl parrafo" v-model="destinoAccount">
+                <select class="border border-black" class="text-2xl parrafo" v-model="destinoAccount">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
                         <option class="text-2xl parrafo">{{account.number}}</option>
 

@@ -40,21 +40,19 @@
             <h4 class="titulo text-3xl text-center m-4">Transferencias a terceros</h4>
             <form class="flex flex-col gap-6 items-center justify-center m-9" action="">
                 <label for="" class="text-2xl parrafo"> Cuenta de origen: </label>
-                    <select v-model="accountOrigen" name="">
+                    <select class="border border-black" v-model="accountOrigen" name="">
                         <template v-for="account in accounts">
                             <option class="text-2xl parrafo">{{account.number}}</option>
 
                         </template>
-                        
-                        
-                       
+                 
                    </select>
                    <label for="" class="text-2xl parrafo" >Monto:</label>
-                   <input type="number" name="" id="" v-model="amount">
+                   <input class="border border-black" type="number" name="" id="" v-model="amount">
                    <label for="" class="text-2xl parrafo" >Descripcion:</label>
-                   <input type="text" name="" id="" v-model="description">
+                   <input class="border border-black" type="text" name="" id="" v-model="description">
                    <label for="" class="text-2xl parrafo" >Cuenta destino</label>
-                   <input type="text" name="" id="" v-model="accountDestino">
+                   <input class="border border-black" type="text" name="" id="" v-model="accountDestino">
                    <button class="bg-green-700 rounded text-2xl justify-center" @click.prevent="createTransfer">Realizar Transferencia</button>
 
         

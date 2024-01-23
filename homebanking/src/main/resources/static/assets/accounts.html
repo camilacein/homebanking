@@ -35,13 +35,16 @@
             
                 <img class="w-full" src="../images/banner.jpg" alt="">
                 <h3 class="titulo text-5xl text-center">Hola {{clients.name}} </h3>
-                <div v-if="accounts.length<3" class="flex items-center justify-center" >
-                    <button class="bg-green-700 rounded text-center text-3xl" @click="createAccount">Crear cuenta</button>
-    
+                <div class="flex flex-wrap justify-center">
+                    <div v-if="accounts.length<3" class="flex items-center justify-center" >
+                        <button class="bg-green-700 rounded text-center text-3xl" @click="createAccount">Crear cuenta</button>
+        
+                    </div>
+                    <div v-if="accounts.length>1" class="flex items-center justify-center m-6">
+                        <button  class="text-3xl text-center bg-green-700 rounded "><a class="" href="delete-account.html">Eliminar cuenta</a></button>
+                    </div>
                 </div>
-                <div class="flex items-center justify-center m-6">
-                    <button  class="text-3xl text-center bg-green-700 rounded "><a class="" href="delete-account.html">Eliminar cuenta</a></button>
-                </div>
+                
             
             <div class="flex flex-wrap gap-2 justify-center m-6">
                 <template v-if="accounts.length > 0" v-for="account in accounts">
@@ -56,14 +59,17 @@
 
             </div>
             <h2 class="titulo text-4xl text-center">Prestamos</h2>
-            <div class="flex items-center justify-center m-6" >
-                <button class="bg-green-700 rounded text-center text-3xl" > <a href="loan-application.html">Pedir prestamo</a></button>
-
+            <div class="flex flex-wrap justify-center">
+                <div class="flex items-center justify-center m-6" >
+                    <button class="bg-green-700 rounded text-center text-3xl" > <a href="loan-application.html">Pedir prestamo</a></button>
+    
+                </div>
+                <div v-if="loans.length>0" class="flex items-center justify-center" >
+                    <button class="bg-green-700 rounded text-center text-3xl" > <a href="loan-pay.html">Pagar prestamo</a></button>
+    
+                </div>
             </div>
-            <div class="flex items-center justify-center" >
-                <button class="bg-green-700 rounded text-center text-3xl" > <a href="loan-pay.html">Pagar prestamo</a></button>
-
-            </div>
+           
             <div class="flex flex-wrap gap-2 justify-center m-6" >
                 
                 <template v-if="loans.length>0" v-for="loan in loans" >

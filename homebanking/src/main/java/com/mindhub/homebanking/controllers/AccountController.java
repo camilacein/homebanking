@@ -56,7 +56,7 @@ public class AccountController {
         //Creamos un String para posteriormente asignarle un número aleatorio.
         String numberAccount;
         do{
-            numberAccount = "VIN-" + getRandomNumber(00000000 , 99999999);
+            numberAccount = getNumber();
         }while (accountServices.existsByNumber(numberAccount));
 
         Account account = new Account(numberAccount, LocalDate.now(), 0, accountType);

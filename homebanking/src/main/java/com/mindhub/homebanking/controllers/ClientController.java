@@ -51,8 +51,7 @@ public class ClientController {
             @RequestParam String name,
             @RequestParam  String lastname,
             @RequestParam  String email,
-            @RequestParam  String password,
-             @RequestParam AccountType accountType){
+            @RequestParam  String password){
         if (name.isBlank()){
             return new ResponseEntity<>("El nombre no puede estar vacio", HttpStatus.FORBIDDEN); //403
         }
@@ -76,7 +75,7 @@ public class ClientController {
             number= getNumber();
 
         } while (accountServices.existsByNumber(number));
-        Account account= new Account(number, LocalDate.now(),0, accountType);
+        Account account= new Account(number, LocalDate.now(),0, AccountType.SAVINGS);
         clientService.saveClient(client);
         client.addAccount(account);
         accountServices.saveAccount(account);

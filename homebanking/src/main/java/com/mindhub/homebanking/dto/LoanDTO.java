@@ -9,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LoanDTO {
     private Long id;
@@ -19,13 +20,18 @@ public class LoanDTO {
     private List<Integer> payments;
 
     private double interest;
-
+private List<String> clientEmail;
     public LoanDTO(Loan loan) {
         id = loan.getId();
         name = loan.getName();
         maxAmount = loan.getMaxAmount();
         payments = loan.getPayments();
         interest = loan.getInterest();
+        clientEmail= loan.getClientLoans().stream().map(clientLoan -> clientLoan.getClient().getEmail()).collect(Collectors.toList());
+    }
+
+    public List<String> getClientEmail() {
+        return clientEmail;
     }
 
     public double getInterest() {
